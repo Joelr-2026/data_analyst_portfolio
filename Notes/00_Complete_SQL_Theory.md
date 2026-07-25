@@ -1,42 +1,46 @@
 # 📚 COMPLETE SQL THEORY 
-# (With Full Explanations)
 
 ---
 
 ## 1️⃣ WHAT IS DATA?
 
-Data means raw facts — numbers, text, dates — without any meaning.
+Data refers to raw, unprocessed facts — numbers, text, dates — without context.
 
 **Example:**
-- "100", "Amit", "2026-07-25" ← Ye data hai (raw)
-- "Amit ka salary ₹100 hai" ← Ye information hai (data with meaning)
+- "100", "Amit", "2026-07-25" → This is raw data
+- "Amit's salary is ₹100 on July 25, 2026" → This is information
 
 ### Key Terms:
 
-- **Data:** Raw facts, unprocessed
-- **Information:** Data with meaning/context
-- **Database:** Organized electronic storage for data. Jaise almari jisme files rakhi ho.
-- **DBMS (Database Management System):** Software jo database manage kare. Almari ka caretaker.
-- **RDBMS (Relational DBMS):** DBMS jo tables mein data store kare aur tables ke beech relationships support kare.
+| Term | Definition |
+|------|------------|
+| **Data** | Raw facts, unprocessed values |
+| **Information** | Processed data with context and meaning |
+| **Database** | Organized electronic storage for structured data |
+| **DBMS** | Software that manages databases (Database Management System) |
+| **RDBMS** | DBMS that stores data in tables with relationships (Relational DBMS) |
 
 ---
 
 ## 2️⃣ TYPES OF DATABASES
 
-Different problems → Different databases
+Different use cases require different database types.
 
-| Type | How Data Stored | Example | Real Use |
-|------|----------------|---------|----------|
-| Relational (RDBMS) | Tables (rows & columns) | PostgreSQL, MySQL | Banking, ERP, HR |
-| NoSQL - Document | JSON documents | MongoDB | Real-time apps, Catalog |
-| NoSQL - Key-Value | Key → Value pairs | Redis | Caching, Sessions |
+| Type | Storage Format | Example | Use Case |
+|------|---------------|---------|----------|
+| Relational (RDBMS) | Tables (rows × columns) | PostgreSQL, MySQL | Banking, ERP, HR |
+| NoSQL - Document | JSON documents | MongoDB | Real-time apps, Catalogs |
+| NoSQL - Key-Value | Key → Value pairs | Redis | Caching, Session management |
 | NoSQL - Graph | Nodes + Relationships | Neo4j | Social networks, Fraud detection |
 
-**PostgreSQL is RDBMS (Relational)**
+**PostgreSQL is an RDBMS (Relational Database Management System)**
 
 ---
 
-## 3️⃣ HIERARCHY IN POSTGRESQL
+## 3️⃣ POSTGRESQL HIERARCHY
+
+The structural organization of PostgreSQL follows this hierarchy:
+
 Server (PostgreSQL 18)
   └── Database (data_analyst_db)
        └── Schema (learning)
@@ -46,87 +50,94 @@ Server (PostgreSQL 18)
                  ├── Column: salary
                  └── Row: ('Amit', 25, 50000)
 
-- **Server:** PostgreSQL ka installation
-- **Database:** Ek project ka poora data
-- **Schema:** Database ke andar folder — organize karne ke liye
-- **Table:** Actual data grid (rows × columns)
-- **Column:** One type of data (all names, all salaries)
-- **Row:** One complete record
+
+| Level | Description | Example |
+|-------|-------------|---------|
+| **Server** | PostgreSQL installation instance | PostgreSQL 18 |
+| **Database** | Complete data storage for one project | data_analyst_db |
+| **Schema** | Logical folder/namespace within database | learning, hr, sales |
+| **Table** | Data grid with rows and columns | employees |
+| **Column** | One category/field of data | name, age, salary |
+| **Row** | One complete record/entry | ('Amit', 25, 50000) |
 
 ---
 
 ## 4️⃣ ACID PROPERTIES
 
-ACID = Database reliability ke 4 golden rules.
+ACID ensures database reliability during transactions.
 
 | Property | Meaning | Example |
 |----------|---------|---------|
-| **A**tomicity | Either full work done or nothing | Money transfer: A se deduct + B mein credit — dono ya kuch nahi |
-| **C**onsistency | Data rules always valid | Balance negative nahi ho sakta |
-| **I**solation | Multiple users don't clash | 2 log last seat book karein — ek ko milegi |
-| **D**urability | Saved data never lost | Power cut ke baad bhi committed data safe |
+| **A**tomicity | Transaction executes completely or not at all | Money transfer: debit + credit both succeed or both fail |
+| **C**onsistency | Database remains valid before and after transaction | Account balance never becomes negative |
+| **I**solation | Concurrent transactions don't interfere | Two users booking last seat — only one succeeds |
+| **D**urability | Committed data survives system failures | Power failure doesn't lose committed data |
 
-**PostgreSQL ACID compliant hai**
+**PostgreSQL is fully ACID compliant.**
 
 ---
 
-## 5️⃣ SQL COMMANDS — 5 CATEGORIES
+## 5️⃣ SQL COMMAND CATEGORIES
 
-| Category | Full Form | Commands | Kya Karta Hai |
-|----------|-----------|----------|---------------|
-| **DDL** | Data Definition Language | CREATE, ALTER, DROP, TRUNCATE | Table structure define/modify |
-| **DML** | Data Manipulation Language | INSERT, UPDATE, DELETE | Data add/change/remove |
-| **DQL** | Data Query Language | SELECT | Data fetch karo |
-| **DCL** | Data Control Language | GRANT, REVOKE | Permissions do/lo |
-| **TCL** | Transaction Control Language | COMMIT, ROLLBACK, SAVEPOINT | Transaction manage |
+SQL commands are divided into 5 categories based on their purpose.
+
+| Category | Full Form | Commands | Purpose |
+|----------|-----------|----------|---------|
+| **DDL** | Data Definition Language | CREATE, ALTER, DROP, TRUNCATE | Define/modify table structure |
+| **DML** | Data Manipulation Language | INSERT, UPDATE, DELETE | Add/change/remove data |
+| **DQL** | Data Query Language | SELECT | Retrieve/fetch data |
+| **DCL** | Data Control Language | GRANT, REVOKE | Manage permissions |
+| **TCL** | Transaction Control Language | COMMIT, ROLLBACK, SAVEPOINT | Manage transactions |
 
 ---
 
 ## 6️⃣ CONSTRAINTS
 
-Rules jo table columns pe lagte hain — data quality ke liye.
+Constraints are rules applied to table columns to ensure data quality and integrity.
 
-| Constraint | Kya Karta Hai | Example |
-|------------|---------------|---------|
-| **PRIMARY KEY** | Unique + Not Null, ek hi per table | employee_id |
-| **FOREIGN KEY** | Doosri table ki PK se link | department_id → departments(id) |
-| **UNIQUE** | Duplicate values allowed nahi | email, phone |
-| **NOT NULL** | Khali nahi chhod sakte | name, salary |
-| **CHECK** | Custom condition | age >= 18 |
-| **DEFAULT** | Value na do to auto-fill | joining_date DEFAULT TODAY |
+| Constraint | Purpose | Example |
+|------------|---------|---------|
+| **PRIMARY KEY** | Uniquely identifies each row, NOT NULL | employee_id |
+| **FOREIGN KEY** | Links to Primary Key of another table | department_id → departments(id) |
+| **UNIQUE** | Ensures all values are different | email, phone_number |
+| **NOT NULL** | Column cannot be empty | name, salary |
+| **CHECK** | Enforces custom condition | age >= 18 |
+| **DEFAULT** | Provides default value if none given | joining_date DEFAULT CURRENT_DATE |
 
 ---
 
 ## 7️⃣ NORMALIZATION
 
-Data ko split karna — duplicate hatane ke liye.
+Normalization is the process of organizing data to reduce redundancy.
 
-| Form | Rule | Problem Solved |
-|------|------|----------------|
-| **1NF** | Har cell mein single value | One cell ≠ multiple values |
-| **2NF** | 1NF + all columns depend on full PK | No partial dependency |
-| **3NF** | 2NF + columns depend only on PK | No transitive dependency |
+| Normal Form | Rule | Problem Solved |
+|-------------|------|----------------|
+| **1NF** | Each cell contains a single (atomic) value | No multiple values in one cell |
+| **2NF** | 1NF + all non-key columns depend on entire PK | No partial dependency |
+| **3NF** | 2NF + all columns depend only on PK | No transitive dependency |
 
-**Example:** Employees table mein department name store nahi karenge. Alag departments table banayenge, FK se link karenge.
+**Example:** Instead of storing department details in every employee row, create a separate departments table and link via Foreign Key.
 
 ---
 
 ## 8️⃣ TYPES OF KEYS
 
-| Key | Definition | Example |
-|-----|------------|---------|
+Keys identify and establish relationships between tables.
+
+| Key Type | Definition | Example |
+|----------|------------|---------|
 | **Primary Key** | Unique row identifier, NOT NULL | emp_id |
-| **Foreign Key** | References PK of another table | dept_id |
-| **Candidate Key** | Any column eligible to be PK | email, phone, aadhaar |
-| **Composite Key** | PK made of 2+ columns | (order_id, product_id) |
-| **Surrogate Key** | Artificial ID, auto-generated | SERIAL (1,2,3...) |
-| **Natural Key** | Real-world identifier | email, PAN number |
+| **Foreign Key** | References Primary Key of another table | dept_id |
+| **Candidate Key** | Any column eligible to become Primary Key | email, phone, aadhaar |
+| **Composite Key** | Primary Key composed of 2+ columns | (order_id, product_id) |
+| **Surrogate Key** | Artificial, auto-generated ID | SERIAL (1, 2, 3...) |
+| **Natural Key** | Real-world unique identifier | email, PAN number |
 
 ---
 
 ## 9️⃣ SQL QUERY EXECUTION ORDER
 
-Likhte alag order mein hain, execute alag order mein hota hai.
+SQL queries are written in one order but executed in another.
 
 | Writing Order | Execution Order |
 |---------------|-----------------|
@@ -138,17 +149,17 @@ Likhte alag order mein hain, execute alag order mein hota hai.
 | ORDER BY | 6th |
 | LIMIT | 7th |
 
-**Why important?** WHERE mein alias use nahi kar sakte, HAVING mein aggregate use kar sakte hain.
+**Why this matters:** Aliases defined in SELECT cannot be used in WHERE (WHERE executes first). Aggregate functions work in HAVING but not in WHERE.
 
 ---
 
 ## 🔟 TABLE RELATIONSHIPS
 
-| Type | Meaning | Example |
-|------|---------|---------|
-| **One-to-One** | 1 row ↔ 1 row | User ↔ UserProfile |
-| **One-to-Many** | 1 row ↔ many rows | Customer ↔ Orders |
-| **Many-to-Many** | Many ↔ Many (needs 3rd table) | Students ↔ Courses |
+| Relationship | Meaning | Example |
+|-------------|---------|---------|
+| **One-to-One** | One row in Table A links to one row in Table B | User ↔ UserProfile |
+| **One-to-Many** | One row in Table A links to many rows in Table B | Customer ↔ Orders |
+| **Many-to-Many** | Many rows in A link to many in B (requires junction table) | Students ↔ Courses |
 
 ---
 
@@ -158,91 +169,97 @@ Likhte alag order mein hain, execute alag order mein hota hai.
 | DBMS | RDBMS |
 |------|-------|
 | File-based storage | Table-based storage |
-| No relationships | Foreign keys |
-| No ACID | ACID compliant |
-| Example: MS Access | Example: PostgreSQL |
+| No relationships | Supports Foreign Keys |
+| No ACID compliance | ACID compliant |
+| Example: MS Access, FoxPro | Example: PostgreSQL, MySQL, Oracle |
 
 ### CHAR vs VARCHAR
 | CHAR(10) | VARCHAR(10) |
 |----------|-------------|
 | Fixed length | Variable length |
-| Pads spaces | No padding |
-| 'AB' = 10 bytes | 'AB' = 2 bytes |
-| Use: Country code 'IN' | Use: Name, Email |
+| Pads with spaces to fill length | Stores only actual data |
+| 'AB' consumes 10 bytes | 'AB' consumes 2 bytes |
+| Use for: Country codes ('IN'), Gender ('M','F') | Use for: Names, Emails, Addresses |
 
 ### NUMERIC vs FLOAT
 | NUMERIC | FLOAT |
 |---------|-------|
-| Exact value | Approximate value |
-| Money, Price | Scientific data |
-| 0.1+0.2 = 0.3 | 0.1+0.2 ≠ 0.3 |
+| Stores exact decimal values | Stores approximate values |
+| Slightly slower | Faster computation |
+| Use for: Money, Price, Salary | Use for: Scientific calculations, Statistics |
+| 0.1 + 0.2 = 0.3 (exact) | 0.1 + 0.2 ≠ 0.3 (rounding error) |
 
 ### DELETE vs TRUNCATE vs DROP
-| DELETE | TRUNCATE | DROP |
-|--------|----------|------|
-| Removes rows | Removes all rows | Removes table |
-| WHERE allowed | No WHERE | No WHERE |
-| Slow (row-by-row) | Fast | Instant |
-| Auto-ID stays | Auto-ID resets | Table gone |
-| DML | DDL | DDL |
+| Feature | DELETE | TRUNCATE | DROP |
+|---------|--------|----------|------|
+| Removes | Specific rows (with WHERE) | All rows | Entire table |
+| Structure | Preserved | Preserved | Removed |
+| Speed | Slow (row-by-row) | Fast | Instant |
+| Auto-ID | Not reset | Reset | N/A |
+| Category | DML | DDL | DDL |
+| Rollback | Yes | Yes (in PostgreSQL) | No |
 
 ### WHERE vs HAVING
 | WHERE | HAVING |
 |-------|--------|
-| Filters individual rows | Filters groups |
-| GROUP BY se pehle | GROUP BY ke baad |
-| Cannot use aggregates | Can use aggregates |
+| Filters individual rows | Filters grouped results |
+| Executes before GROUP BY | Executes after GROUP BY |
+| Cannot use aggregate functions | Can use aggregate functions |
+| Example: WHERE salary > 50000 | Example: HAVING AVG(salary) > 50000 |
 
-### GROUP BY vs WINDOW
+### GROUP BY vs WINDOW FUNCTIONS
 | GROUP BY | WINDOW |
 |----------|--------|
-| Rows collapse into groups | All rows remain |
-| Ek row per group output | Har row + aggregate |
-| Detail lost | Detail + summary |
+| Collapses rows into groups | Keeps all rows |
+| One row per group in output | Every row with aggregated values |
+| Detail rows are lost | Detail rows preserved with summary |
 
 ### VIEW vs TABLE
 | TABLE | VIEW |
 |-------|------|
-| Physical data | Virtual (saved query) |
-| Storage space leta hai | No extra space |
-| Fast | Slightly slower |
+| Physically stores data | Virtual (saved query) |
+| Occupies storage space | No additional space |
+| Faster access | Slightly slower (executes query each time) |
+| Can perform all DML operations | Limited DML support |
 
 ### OLTP vs OLAP
 | OLTP | OLAP |
 |------|------|
+| Online Transaction Processing | Online Analytical Processing |
 | Day-to-day operations | Analysis & Reporting |
-| INSERT, UPDATE, DELETE | SELECT, Aggregations |
-| Example: Order placing | Example: Sales report |
+| INSERT, UPDATE, DELETE heavy | SELECT, aggregations heavy |
+| Normalized tables | Denormalized/Star schema |
+| Example: Placing an order on Zomato | Example: Monthly sales trend report |
 
 ---
 
 ## 1️⃣2️⃣ AGGREGATE FUNCTIONS
 
-Multiple rows pe kaam karte hain, ek result return karte hain.
+Aggregate functions operate on multiple rows and return a single result.
 
-| Function | Kya Karta Hai | Example |
-|----------|---------------|---------|
-| COUNT() | Kitni rows | COUNT(*) = 100 |
-| SUM() | Jodo sab values | SUM(salary) = 500000 |
-| AVG() | Average | AVG(age) = 28 |
-| MIN() | Sabse chhoti value | MIN(price) = 10 |
-| MAX() | Sabse badi value | MAX(salary) = 100000 |
+| Function | Purpose | Example |
+|----------|---------|---------|
+| COUNT() | Count number of rows | COUNT(*) → 100 |
+| SUM() | Calculate total of values | SUM(salary) → 500000 |
+| AVG() | Calculate average | AVG(age) → 28.5 |
+| MIN() | Find smallest value | MIN(price) → 10 |
+| MAX() | Find largest value | MAX(salary) → 100000 |
 
-**Important:** NULL values ignore hoti hain (COUNT ke alawa)
+**Note:** NULL values are ignored by all aggregate functions except COUNT(*).
 
 ---
 
 ## 1️⃣3️⃣ SCALAR (STRING) FUNCTIONS
 
-Ek value pe kaam karte hain.
+Scalar functions operate on a single value.
 
-| Function | Use | Example |
-|----------|-----|---------|
-| UPPER() | CAPITAL | 'amit' → 'AMIT' |
-| LOWER() | small | 'AMIT' → 'amit' |
-| LENGTH() | Kitne chars | 'ABC' → 3 |
-| TRIM() | Spaces hatao | ' AB ' → 'AB' |
-| CONCAT() | Jodo | 'A' \|\| 'B' → 'AB' |
+| Function | Purpose | Example |
+|----------|---------|---------|
+| UPPER() | Convert to uppercase | UPPER('amit') → 'AMIT' |
+| LOWER() | Convert to lowercase | LOWER('AMIT') → 'amit' |
+| LENGTH() | Count characters | LENGTH('ABC') → 3 |
+| TRIM() | Remove leading/trailing spaces | TRIM(' AB ') → 'AB' |
+| CONCAT() or \|\| | Join strings together | 'A' \|\| 'B' → 'AB' |
 
 ---
 
@@ -250,101 +267,105 @@ Ek value pe kaam karte hain.
 
 | Type | Operators | Example |
 |------|-----------|---------|
-| Arithmetic | + - * / | salary * 12 |
-| Comparison | = <> < > <= >= | salary > 50000 |
-| Logical | AND OR NOT | age > 18 AND salary > 30000 |
-| Pattern | LIKE, ILIKE | name LIKE 'A%' |
+| Arithmetic | + - * / % | salary * 12 |
+| Comparison | = <> != < > <= >= | salary > 50000 |
+| Logical | AND, OR, NOT | age > 18 AND salary > 30000 |
+| Pattern Matching | LIKE, ILIKE | name LIKE 'A%' |
 | Range | BETWEEN, IN | age BETWEEN 18 AND 60 |
-| NULL check | IS NULL, IS NOT NULL | phone IS NULL |
+| NULL Check | IS NULL, IS NOT NULL | phone IS NULL |
 
 ---
 
 ## 1️⃣5️⃣ IMPORTANT KEYWORDS
 
-| Keyword | Use | Example |
-|---------|-----|---------|
-| DISTINCT | Duplicates hatao | SELECT DISTINCT city |
-| ORDER BY | Sort (ASC/DESC) | ORDER BY salary DESC |
-| LIMIT | Kitni rows | LIMIT 10 |
-| OFFSET | Kitni skip | OFFSET 20 |
-| CASE | If-else logic | CASE WHEN...THEN...ELSE...END |
-| COALESCE | First non-NULL | COALESCE(phone, 'N/A') |
-| NULLIF | NULL if equal | NULLIF(0, 0) → NULL |
+| Keyword | Purpose | Example |
+|---------|---------|---------|
+| DISTINCT | Remove duplicate values | SELECT DISTINCT city FROM employees |
+| ORDER BY | Sort results (ASC/DESC) | ORDER BY salary DESC |
+| LIMIT | Restrict number of rows returned | LIMIT 10 |
+| OFFSET | Skip specified number of rows | OFFSET 20 |
+| CASE | Conditional logic (if-else) | CASE WHEN age < 18 THEN 'Minor' ELSE 'Adult' END |
+| COALESCE | Return first non-NULL value | COALESCE(phone, 'Not Provided') |
+| NULLIF | Return NULL if two values are equal | NULLIF(0, 0) → NULL |
 
 ---
 
-## 1️⃣6️⃣ ADVANCED TOPICS (Brief)
+## 1️⃣6️⃣ ADVANCED TOPICS (Brief Overview)
 
-| Topic | Simple Definition |
-|-------|-------------------|
-| **Subquery** | Query ke andar query. Inner query pehle run hoti hai. |
-| **CTE (WITH)** | Named temporary result. Readable, reusable. |
-| **Window Function** | Har row ke saath aggregate/rank. Rows collapse nahi hote. OVER() use hota hai. |
-| **Index** | Book index jaisa. Search fast karta hai. Bina index full table scan. |
-| **Transaction** | BEGIN → queries → COMMIT (save) ya ROLLBACK (undo). |
-| **Stored Procedure** | Saved SQL code, baar-baar run kar sakte ho. Parameters accept karta hai. |
-| **Trigger** | Event pe auto-run. Jaise INSERT ke baad log table mein entry. |
+| Topic | Definition |
+|-------|------------|
+| **Subquery** | A query nested inside another query. Inner query executes first. |
+| **CTE (WITH)** | Common Table Expression — named temporary result set. More readable and reusable than subqueries. |
+| **Window Function** | Performs calculation across a set of rows related to the current row. Does NOT collapse rows like GROUP BY. Uses OVER() clause. |
+| **Index** | Database object that speeds up data retrieval. Like a book's index. Without index = full table scan (slow). |
+| **Transaction** | A sequence of operations treated as a single unit. BEGIN → queries → COMMIT (save) or ROLLBACK (undo). |
+| **Stored Procedure** | Pre-saved SQL code that can be executed repeatedly. Accepts parameters. |
+| **Trigger** | Automatically executes specified code when an event occurs (INSERT, UPDATE, DELETE). |
 
 ---
 
 ## 1️⃣7️⃣ DATA MODELING
 
-| Phase | What | Example |
-|-------|------|---------|
-| Conceptual | High-level entities | Student, Course |
-| Logical | Add attributes & PKs | Student(id, name), Course(id, title) |
-| Physical | Actual table DDL | CREATE TABLE students(...) |
+| Phase | Description | Example |
+|-------|-------------|---------|
+| **Conceptual** | High-level entities and relationships | Student, Course |
+| **Logical** | Entities with attributes and Primary Keys | Student(id, name, age) |
+| **Physical** | Actual DDL with data types and constraints | CREATE TABLE students (...) |
 
 ### Star Schema vs Snowflake Schema
-| Star | Snowflake |
-|------|-----------|
-| 1 Fact table + flat Dim tables | Dim tables further normalized |
-| Fast queries (less JOINs) | Storage efficient |
-| More storage | More complex queries |
+| Star Schema | Snowflake Schema |
+|-------------|-----------------|
+| Fact table + flat dimension tables | Fact table + normalized dimensions |
+| Fewer JOINs, faster queries | More JOINs, complex queries |
+| More storage (redundancy) | Less storage (normalized) |
 
 ---
 
-## 1️⃣8️⃣ COMMON INTERVIEW SCENARIO: SLOW QUERY
+## 1️⃣8️⃣ HANDLING SLOW QUERIES (Interview Scenario)
 
-Problem: Query slow hai. Kya karoge?
+**Problem:** A query is running very slowly. How do you fix it?
 
 | Step | Action |
 |------|--------|
-| 1 | EXPLAIN ANALYZE se check karo execution plan |
-| 2 | Index missing hai kya? WHERE/JOIN columns pe index banao |
-| 3 | SELECT * ki jagah specific columns lo |
-| 4 | Subqueries ko JOINs/CTE mein badlo |
-| 5 | WHERE clause pe function use mat karo (WHERE YEAR(date) = 2024 ❌) |
+| 1 | Use EXPLAIN ANALYZE to see the execution plan |
+| 2 | Check for missing indexes on WHERE/JOIN columns |
+| 3 | Replace SELECT * with specific column names |
+| 4 | Convert subqueries to JOINs or CTEs where possible |
+| 5 | Avoid functions on indexed columns in WHERE (e.g., WHERE YEAR(date) = 2024 — this disables index) |
+| 6 | Ensure statistics are up to date (ANALYZE table) |
 
 ---
 
 ## 1️⃣9️⃣ GIT & GITHUB
 
-| Term | Meaning |
-|------|---------|
-| **Git** | Version control system. Code history track karta hai. |
-| **GitHub** | Cloud pe Git repository. Backup + Sharing + Portfolio. |
-| **Repository** | Project folder tracked by Git. |
-| **Commit** | Changes ka snapshot save karna. |
-| **Push** | Local se GitHub pe upload. |
-| **Pull** | GitHub se local pe download. |
-| **ACP** | Add → Commit → Push (Git workflow) |
-| **.gitignore** | Files jo Git track na kare (passwords, large files) |
+| Term | Definition |
+|------|------------|
+| **Git** | Distributed version control system that tracks code changes |
+| **GitHub** | Cloud-based hosting service for Git repositories |
+| **Repository (Repo)** | A project folder whose contents are tracked by Git |
+| **Commit** | A snapshot/save point of changes |
+| **Push** | Upload local commits to remote repository (GitHub) |
+| **Pull** | Download remote changes to local machine |
+| **ACP Workflow** | Add → Commit → Push (standard Git workflow) |
+| **.gitignore** | File specifying which files/folders Git should not track |
 
 ---
 
-## 2️⃣0️⃣ POSTGRESQL SPECIFIC FACTS
+## 2️⃣0️⃣ POSTGRESQL KEY FACTS
 
-| Fact | Detail |
-|------|--------|
-| Type | ORDBMS (Object-Relational) |
-| License | Open Source, Free |
-| ACID | Yes |
-| JSON Support | Yes (JSONB) |
-| Max DB Size | Unlimited |
-| Max Table Size | 32 TB |
-| Famous Users | Apple, Spotify, Instagram, Uber |
+| Attribute | Detail |
+|-----------|--------|
+| **Full Name** | PostgreSQL |
+| **Type** | Object-Relational Database Management System (ORDBMS) |
+| **License** | Open Source (completely free) |
+| **ACID Compliance** | Yes |
+| **JSON Support** | Yes (JSON and JSONB data types) |
+| **Maximum Database Size** | Unlimited |
+| **Maximum Table Size** | 32 TB |
+| **Notable Users** | Apple, Spotify, Instagram, Uber, Netflix |
 
 ---
 
-## ✅ END OF THEORY
+## ✅ END OF THEORY DOCUMENT
+
+This document covers all theoretical concepts 
