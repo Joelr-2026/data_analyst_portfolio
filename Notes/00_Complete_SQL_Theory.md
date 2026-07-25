@@ -1,4 +1,4 @@
-# 📚 COMPLETE SQL THEORY — INTERVIEW READY
+# 📚 COMPLETE SQL THEORY 
 # (With Full Explanations)
 
 ---
