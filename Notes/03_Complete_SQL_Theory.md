@@ -1,0 +1,6 @@
+- SELECT: fetch columns from a table.
+- WHERE: filter rows.
+- ORDER BY: sort results (ASC/DESC).
+- LIMIT: restrict number of rows.
+- LIKE: pattern search (% = wildcard).
+- IN: match any from list.
